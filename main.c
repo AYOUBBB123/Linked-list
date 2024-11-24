@@ -16,6 +16,8 @@ void deallocate(Node **root){
     }
     *root = NULL;
 }
+
+
 void insert_end(Node **root, int val){
     Node * new_node = malloc(sizeof(Node) );
     if(new_node == NULL){
@@ -44,6 +46,47 @@ void insert_start(Node **root, int val) {
     *root = new_node;
 }
 
+void insert_after(Node **root,int place, int val){
+    if(place < 0){
+        printf("u cant give a negative number\n");
+        return;
+    }
+    Node * new_node = malloc(sizeof(Node) );
+    if(new_node == NULL){
+        exit(5);
+    }
+
+    if (*root == NULL  ) {
+        new_node->x = val;
+        new_node->next = NULL;
+        *root = new_node;
+        return;
+    }
+    if(place == 0){
+        insert_start(root,val);
+        return;
+    }
+
+    Node *curr = *root;
+    for(int i =1; i< place ; i++){
+        if(curr->next == NULL){
+            printf("u dont have that much element \n");
+            return;
+        }
+        curr = curr->next;
+
+
+    }
+
+    new_node->next = curr->next ;
+    new_node->x = val;
+    curr->next = new_node;
+
+}
+
+
+
+
 int main(){
 Node *root = NULL ;
 
@@ -51,6 +94,7 @@ Node *root = NULL ;
     insert_end(&root ,13);
     insert_end(&root ,12);
     insert_start(&root ,12);
+    insert_after(&root,-1,22);
 
 
 
