@@ -1,13 +1,21 @@
+#include <crtdbg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 typedef struct Node{
     int x;
     struct Node *next;
 } Node;
 
 
-
+void deallocate(Node **root){
+    Node *curr = *root;
+    while (curr != NULL){
+        Node *aux = curr;
+        curr = curr->next;
+        free(aux);
+    }
+    *root = NULL;
+}
 void insert_end(Node **root, int val){
     Node * new_node = malloc(sizeof(Node) );
     if(new_node == NULL){
@@ -41,5 +49,9 @@ for(Node *curr = root;curr != NULL;curr = curr->next){
         printf("%d\n", curr->x);
 
     }
+
+    deallocate(&root);
+    _CrtDumpMemoryLeaks();
+
     return 0;
 }
