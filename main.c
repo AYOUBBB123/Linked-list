@@ -34,6 +34,15 @@ void insert_end(Node **root, int val){
 
     curr->next = new_node;
 }
+void insert_start(Node **root, int val) {
+    Node *new_node = malloc(sizeof(Node));
+    if (new_node == NULL) {
+        exit(3);
+    }
+    new_node->next = *root;
+    new_node->x = val;
+    *root = new_node;
+}
 
 int main(){
 Node *root = NULL ;
@@ -41,11 +50,13 @@ Node *root = NULL ;
     insert_end(&root ,15);
     insert_end(&root ,13);
     insert_end(&root ,12);
+    insert_start(&root ,12);
 
 
 
 
-for(Node *curr = root;curr != NULL;curr = curr->next){
+
+    for(Node *curr = root;curr != NULL;curr = curr->next){
         printf("%d\n", curr->x);
 
     }
